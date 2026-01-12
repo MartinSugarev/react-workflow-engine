@@ -1,0 +1,152 @@
+[
+  {
+    "id": "1",
+    "claimNumber": "CLM001",
+    "policyholderName": "John Smith",
+    "claimType": "Auto",
+    "status": "Submitted",
+    "claimAmount": 1200,
+    "dateSubmitted": "2026-01-10",
+    "assignedAdjuster": "Alice"
+  },
+  {
+    "id": "2",
+    "claimNumber": "CLM002",
+    "policyholderName": "Mary Johnson",
+    "claimType": "Home",
+    "status": "Approved",
+    "claimAmount": 3500,
+    "dateSubmitted": "2026-01-09",
+    "assignedAdjuster": "Bob"
+  },
+  {
+    "id": "3",
+    "claimNumber": "CLM003",
+    "policyholderName": "Alex Brown",
+    "claimType": "Health",
+    "status": "Under Review",
+    "claimAmount": 2200,
+    "dateSubmitted": "2026-01-08",
+    "assignedAdjuster": "Charlie"
+  },
+  {
+    "id": "4",
+    "claimNumber": "CLM004",
+    "policyholderName": "Linda Davis",
+    "claimType": "Life",
+    "status": "Rejected",
+    "claimAmount": 5000,
+    "dateSubmitted": "2026-01-07",
+    "assignedAdjuster": "Alice"
+  },
+  {
+    "id": "5",
+    "claimNumber": "CLM005",
+    "policyholderName": "Michael Wilson",
+    "claimType": "Auto",
+    "status": "Pending Documentation",
+    "claimAmount": 1800,
+    "dateSubmitted": "2026-01-06",
+    "assignedAdjuster": "Bob"
+  },
+  {
+    "id": "6",
+    "claimNumber": "CLM006",
+    "policyholderName": "Emily Clark",
+    "claimType": "Home",
+    "status": "Submitted",
+    "claimAmount": 4000,
+    "dateSubmitted": "2026-01-05",
+    "assignedAdjuster": "Charlie"
+  },
+  {
+    "id": "7",
+    "claimNumber": "CLM007",
+    "policyholderName": "Daniel Lewis",
+    "claimType": "Health",
+    "status": "Approved",
+    "claimAmount": 2500,
+    "dateSubmitted": "2026-01-04",
+    "assignedAdjuster": "Alice"
+  },
+  {
+    "id": "8",
+    "claimNumber": "CLM008",
+    "policyholderName": "Sophia Walker",
+    "claimType": "Life",
+    "status": "Under Review",
+    "claimAmount": 6000,
+    "dateSubmitted": "2026-01-03",
+    "assignedAdjuster": "Bob"
+  },
+  {
+    "id": "9",
+    "claimNumber": "CLM009",
+    "policyholderName": "David Hall",
+    "claimType": "Auto",
+    "status": "Rejected",
+    "claimAmount": 1400,
+    "dateSubmitted": "2026-01-02",
+    "assignedAdjuster": "Charlie"
+  },
+  {
+    "id": "10",
+    "claimNumber": "CLM010",
+    "policyholderName": "Olivia Young",
+    "claimType": "Home",
+    "status": "Pending Documentation",
+    "claimAmount": 3700,
+    "dateSubmitted": "2026-01-01",
+    "assignedAdjuster": "Alice"
+  },
+  {
+    "id": "11",
+    "claimNumber": "CLM011",
+    "policyholderName": "James King",
+    "claimType": "Health",
+    "status": "Submitted",
+    "claimAmount": 2100,
+    "dateSubmitted": "2025-12-31",
+    "assignedAdjuster": "Bob"
+  },
+  {
+    "id": "12",
+    "claimNumber": "CLM012",
+    "policyholderName": "Mia Wright",
+    "claimType": "Life",
+    "status": "Approved",
+    "claimAmount": 5200,
+    "dateSubmitted": "2025-12-30",
+    "assignedAdjuster": "Charlie"
+  },
+  {
+    "id": "13",
+    "claimNumber": "CLM013",
+    "policyholderName": "Ethan Scott",
+    "claimType": "Auto",
+    "status": "Under Review",
+    "claimAmount": 1600,
+    "dateSubmitted": "2025-12-29",
+    "assignedAdjuster": "Alice"
+  },
+  {
+    "id": "14",
+    "claimNumber": "CLM014",
+    "policyholderName": "Ava Green",
+    "claimType": "Home",
+    "status": "Rejected",
+    "claimAmount": 3800,
+    "dateSubmitted": "2025-12-28",
+    "assignedAdjuster": "Bob"
+  },
+  {
+    "id": "15",
+    "claimNumber": "CLM015",
+    "policyholderName": "William Adams",
+    "claimType": "Health",
+    "status": "Pending Documentation",
+    "claimAmount": 2300,
+    "dateSubmitted": "2025-12-27",
+    "assignedAdjuster": "Charlie"
+  }
+]
