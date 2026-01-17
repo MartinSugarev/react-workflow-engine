@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useEffect } from 'react';
-import { SingleClaimType, FilterState, FilterTypes } from '../../types/dashboard';
+import { SingleClaimType, FilterState, FilterTypes, SortingType, StatusType } from '../../types/dashboard';
 import { FilterAction, reducer } from '../../reducers/claimsReducer';
 import { useReducer } from 'react';
 import useFetch from '../../hooks/useFetch';
@@ -7,7 +7,11 @@ import useFetch from '../../hooks/useFetch';
 export interface ClaimContextType {
   state: FilterState;
   dispatch: (action: FilterAction) => void,
-  appliedFilters: FilterTypes[]
+}
+
+export interface UpradetedItemProps {
+  id: string;
+  status: StatusType;
 }
 
 export const ClaimContext = createContext<ClaimContextType | null>(null);
@@ -15,7 +19,9 @@ export const ClaimContext = createContext<ClaimContextType | null>(null);
 const initialState: FilterState = {
     allItems: [] as SingleClaimType[],
     filteredItems: [] as SingleClaimType[],
-    appliedFilters: [] as FilterTypes[]
+    appliedFilters: [] as FilterTypes[],
+    sortingRules: [] as SortingType[],
+    updatedItem: {} as UpradetedItemProps
   };
 
 export function ClaimProvider({ children }: { children: ReactNode }) {
@@ -32,7 +38,6 @@ export function ClaimProvider({ children }: { children: ReactNode }) {
     <ClaimContext.Provider
       value={{
         state,
-        appliedFilters: [],
         dispatch
       }}
     >

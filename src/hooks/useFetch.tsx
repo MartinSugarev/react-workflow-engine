@@ -2,11 +2,18 @@ import { useEffect, useState } from 'react'
 import { SingleClaimType } from '../types/dashboard';
 export default function useFetch(url: string) {
     const [value, setValue] = useState<SingleClaimType[]>([]);
+    const controller = new AbortController();
 
     useEffect(() => {
-        const controller = new AbortController();
-        async function fetchData() {
-            try {
+
+        fetchData()
+
+        return () => controller.abort();
+    }, [])
+    
+    async function fetchData() {
+        try {
+            //HANDLE ERRORS    
             const response = await fetch(url, { signal: controller.signal });
             const claims = await response.json();
             setValue(claims)
@@ -14,11 +21,6 @@ export default function useFetch(url: string) {
             console.log(error);
             }
         }
-
-        fetchData()
-
-        return () => controller.abort();
-    }, [])
 
     return value
 }

@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import ControlContainer from './ControlContainer'
 import DropdownMenu from './DropdownMenu'
 import { FilterTypes, SortingType } from '../../types/dashboard';
 import Button from '../ui/Button';
-import { useClaimContext } from '../../hooks/useClaimContext';
+import { ClaimContext } from '../../context/claimContext/ClaimContext';
 
 const SORT_OPTIONS:SortingType[] = ['OLDEST', 'NEWEST', 'DESCENDING', 'ASCENDING'];
 const FILTER_OPTIONS: FilterTypes[] = ["Submitted", "Under Review", "Approved", "Rejected", "Pending Documentation", "Auto", "Home", "Health", "Life"]
 export default function ControlComponent() {
-  const ctx = useClaimContext();
+  const ctx = useContext(ClaimContext);
+  if (!ctx) return
   const {dispatch} = ctx;
   const [selected, setSelected] = useState<FilterTypes[]>([]);
 
@@ -22,9 +23,9 @@ export default function ControlComponent() {
   }
 
     function handleChangeSort(e: React.ChangeEvent<HTMLSelectElement>) {
-    const selectedOption = e.target.selectedOptions[0].text.toUpperCase() as SortingType
-    dispatch({type: selectedOption})
-  }
+    const selectedOption = e.target.selectedOptions[0].text.toUpperCase() as SortingType    
+    dispatch({type: 'ADDED_SORTING_RULE', payload: [selectedOption]})
+    }  
 
   return (
     <ControlContainer>

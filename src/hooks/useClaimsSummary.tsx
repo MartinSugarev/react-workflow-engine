@@ -1,6 +1,7 @@
 import { StatusType, SingleClaimType } from "../types/dashboard";
 
 export function useClaimsSummary(visibleClaims: SingleClaimType[]) {
+    
     const byStatus: Record<StatusType, number> = {
       "Submitted": 0,
       "Under Review": 0,

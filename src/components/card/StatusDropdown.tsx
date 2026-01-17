@@ -3,14 +3,14 @@ import Select from "../ui/Select";
 
 type StatusDropdownProps = {
   claim: SingleClaimType;
-  onStatusChange: (id: string, newStatus: string) => void;
+  onStatusChange: (id: string, newStatus: StatusType) => void;
 };
 
 const STATUS_OPTIONS: StatusType[] = ["Submitted", "Under Review", "Approved", "Rejected", "Pending Documentation"];
 
 export function StatusDropdown({ claim, onStatusChange }: StatusDropdownProps) {
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    onStatusChange(claim.id, e.target.value);
+    onStatusChange(claim.id, e.target.value as StatusType);
   };
 
   return (

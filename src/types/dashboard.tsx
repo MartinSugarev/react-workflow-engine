@@ -1,3 +1,5 @@
+import { UpradetedItemProps } from "../context/claimContext/ClaimContext";
+
 export const STATUS_TYPES_TUPLE = ["Submitted", "Under Review", "Approved", "Rejected", "Pending Documentation"] as const;
 export const CLAIM_TYPES_TUPLE = ["Auto", "Home", "Health", "Life"] as const;
 export const SORTING_TYPES_TUPLE = ["OLDEST", "NEWEST", "DESCENDING", "ASCENDING"] as const;
@@ -27,4 +29,6 @@ export interface FilterState {
   allItems: SingleClaimType[];      
   filteredItems: SingleClaimType[]; 
   appliedFilters: FilterTypes[];
+  sortingRules: SortingType[];
+  updatedItem: UpradetedItemProps
 }

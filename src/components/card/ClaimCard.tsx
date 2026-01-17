@@ -2,6 +2,9 @@ import { StatusDropdown } from "./StatusDropdown";
 import { useClaimContext } from "../../hooks/useClaimContext";
 import CardHeader from "./components/CardHeader";
 import CardBody from "./components/CardBody";
+import { useContext } from "react";
+import { ClaimContext } from "../../context/claimContext/ClaimContext";
+import { StatusType } from "../../types/dashboard";
 
 export interface Claim {
   id: string;
@@ -19,13 +22,15 @@ export interface ClaimCardProps {
 }
 
 export function ClaimCard({ claim }: ClaimCardProps) {
-     const ctx = useClaimContext();
+     const ctx = useContext(ClaimContext);
+     if (!ctx) return
      const { dispatch } = ctx; 
 
 function onStatusChangeFn(
   id: string,
-  newStatus: string,
+  newStatus: StatusType,
 ) {
+  
   dispatch({
     type: "UPDATE_CLAIM_STATUS",
     payload: { id, status: newStatus },
