@@ -30,5 +30,6 @@ export interface FilterState {
   filteredItems: SingleClaimType[]; 
   appliedFilters: FilterTypes[];
   sortingRules: SortingType[];
-  updatedItem: UpradetedItemProps
+  updatedItem: UpradetedItemProps,
+  searchValue: string
 }

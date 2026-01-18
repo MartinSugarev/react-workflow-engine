@@ -4,6 +4,6 @@ interface ButtonProps{
 }
 export default function Button({handleClick, text}: ButtonProps) {
   return (
-    <button className="border hover:cursor-pointer rounded-xs" onClick={handleClick}>{text}</button>
+    <button className="border hover:cursor-pointer rounded-xs p-1" onClick={handleClick}>{text}</button>
   )
 }

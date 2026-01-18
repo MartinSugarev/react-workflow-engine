@@ -21,7 +21,8 @@ const initialState: FilterState = {
     filteredItems: [] as SingleClaimType[],
     appliedFilters: [] as FilterTypes[],
     sortingRules: [] as SortingType[],
-    updatedItem: {} as UpradetedItemProps
+    updatedItem: {} as UpradetedItemProps,
+    searchValue: ''
   };
 
 export function ClaimProvider({ children }: { children: ReactNode }) {

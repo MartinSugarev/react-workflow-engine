@@ -6,6 +6,8 @@ export type FilterAction =
   | { type: 'FILTER_APPLIED'; payload: FilterTypes[] }
   | { type: 'UPDATE_CLAIM_STATUS'; payload: {id: string, status: StatusType}}
   | { type: 'ADDED_SORTING_RULE'; payload: SortingType[]}
+  | { type: 'CLEAR_ALL_FILTERS'}
+  | { type: 'SEARCH'; payload: string}
 
 export function reducer(state: FilterState, action: FilterAction): FilterState {
   switch (action.type) {
@@ -26,6 +28,16 @@ export function reducer(state: FilterState, action: FilterAction): FilterState {
         ...state,
         allItems: [...state.allItems.map(claim => claim.id === action.payload.id ? {...claim, status: action.payload.status} : {...claim})]
       };  
+    case 'CLEAR_ALL_FILTERS': 
+     return {
+      ...state,
+      appliedFilters: []
+     }  
+     case 'SEARCH': 
+     return {
+      ...state,
+      searchValue: action.payload
+     }
 
     default:
       return state;
