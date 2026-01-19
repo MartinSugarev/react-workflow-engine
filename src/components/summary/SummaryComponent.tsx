@@ -4,7 +4,7 @@ import { useClaimsSummary } from '../../hooks/useClaimsSummary';
 import { useClaimContext } from '../../hooks/useClaimContext';
 
 export default function SummaryComponent() {
-  const result = useClaimContext()    
+  const {searchedItems: result} = useClaimContext()    
   const { totalAmount, totalCount, byStatus } = useClaimsSummary(result);
 
   return (

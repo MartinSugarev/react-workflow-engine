@@ -6,7 +6,8 @@ import useFetch from '../../hooks/useFetch';
 
 export interface ClaimContextType {
   state: FilterState;
-  dispatch: (action: FilterAction) => void,
+  loading: boolean;
+  dispatch: (action: FilterAction) => void;
 }
 
 export interface UpradetedItemProps {
@@ -26,7 +27,7 @@ const initialState: FilterState = {
   };
 
 export function ClaimProvider({ children }: { children: ReactNode }) {
-  const claimsData = useFetch('/claims.json');
+  const {data: claimsData, loading} = useFetch('/claims.json');
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
@@ -39,6 +40,7 @@ export function ClaimProvider({ children }: { children: ReactNode }) {
     <ClaimContext.Provider
       value={{
         state,
+        loading,
         dispatch
       }}
     >

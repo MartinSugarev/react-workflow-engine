@@ -8,7 +8,7 @@ export function useClaimContext() {
     throw new Error("No context applied");
   }
 
-  const { state } = ctx;
+  const { state, loading } = ctx;
   const { allItems, appliedFilters, sortingRules, searchValue } = state;
 
   
@@ -67,5 +67,5 @@ export function useClaimContext() {
     );
   }, [sortedItems, searchValue]);
 
-  return searchedItems;
+  return {searchedItems, loading};
 }
