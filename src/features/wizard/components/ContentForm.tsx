@@ -1,19 +1,25 @@
+import {  useState } from "react";
+import useWizardAPIContext from "./hooks/useWizardAPIContext";
 
 export default function ContentForm() {
-  return (
-    <div className="rounded-xl border border-black bg-sky-200 p-10 min-h-[360px]">
-      <div className="text-xl font-medium mb-6">Form Step</div>
+  const [inputData, setInputData] = useState<string>('')
+  const {updateStepData} = useWizardAPIContext();
 
-      <div className="space-y-4">
-        <label className="block">
-          <span className="block text-sm font-medium mb-1">Field A</span>
-          <input
-            className="w-full rounded-lg border border-black/30 bg-white px-3 py-2"
-            placeholder="Type..."
-          />
-        </label>
-        
-      </div>
-    </div>
-  );
+return (
+  <div className="flex items-center gap-3">
+    <input
+      onChange={(e) => setInputData(e.target.value)}
+      value={inputData}
+      className="flex-1 rounded-lg border border-black/30 bg-white px-3 py-2 focus:border-black focus:outline-none"
+      placeholder="Type..."
+    />
+
+    <button
+      onClick={() => updateStepData(inputData)}
+      className="rounded-lg bg-black px-4 py-2 text-sm font-semibold text-white"
+    >
+      Save
+    </button>
+  </div>
+);
 }

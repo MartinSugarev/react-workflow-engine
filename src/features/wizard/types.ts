@@ -14,8 +14,10 @@ interface WizardState {
   invalidSteps: string[];
 }
 
+type WizardActionType = 'UPDATE_INVALID_STEPS' | 'UPDATE_STORED_DATA' | 'UPDATE_ACTIVE_STEP_INDEX' | 'UPDATE_STEPS_CONFIG'
+
 interface WizardAction {
-//   type: WizardActionType;
+  type: WizardActionType;
   nextStepId?: string;
   stepIndex?: number;
   stepData?: string;

@@ -16,14 +16,10 @@ export default function WizardLayout() {
         <div className="flex gap-10">
          <WizardProvider stepsConfig={stepsConfig}>
           <div className="flex-1">
-          <WizardActiveStepContextProvider>
-             <Step />
-          </WizardActiveStepContextProvider>  
+             <Step />  
             <Controls />
           </div>
-         <WizardNavigationContextProvider>
              <Navigation />
-         </WizardNavigationContextProvider>
          </WizardProvider>   
         </div>
       </div>
