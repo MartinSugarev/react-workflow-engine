@@ -1,18 +1,13 @@
-import { useContext, useState } from "react";
-import { WizardNavigationContext } from "../WizardProvider";
+import { useState } from "react";
 import useWizardAPIContext from "./hooks/useWizardAPIContext";
 import useWizardNavigation from "./hooks/useWizardNavigation";
+import useWizardActiveStep from "./hooks/useWizardActiveStep";
 
 export default function ContentFlowSelector() {
-  const data = useContext(WizardNavigationContext);
-  const { updateNextStep } = useWizardAPIContext();
-  const wizardNavigationData = useWizardNavigation()
   const [selected, setSelected] = useState<string | null>(null);
-
-  if (!data) return null;
-
-  const { stepsConfig, entryPoint } = data;
-  const activeStepConfig = stepsConfig[entryPoint];
+  const { updateNextStep } = useWizardAPIContext();
+  const wizardNavigationData = useWizardNavigation();
+  const { activeStepConfig } = useWizardActiveStep();
 
   return (
     <div className="flex items-center gap-6 text-base">
@@ -21,7 +16,9 @@ export default function ContentFlowSelector() {
           <input
             type="radio"
             name="contentFlow"
-            checked={selected === o.stepId || wizardNavigationData.includes(o.stepId)}
+            checked={
+              selected === o.stepId || wizardNavigationData.includes(o.stepId)
+            }
             onChange={() => {
               setSelected(o.stepId);
               updateNextStep(o.stepId);

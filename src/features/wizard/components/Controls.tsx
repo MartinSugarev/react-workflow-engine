@@ -1,25 +1,25 @@
 import useWizardAPIContext from "./hooks/useWizardAPIContext";
 import useWizardActiveStep from "./hooks/useWizardActiveStep";
+import useWizardNavigation from "./hooks/useWizardNavigation";
 
 export default function Controls() {
-  const wizardAPIContextData = useWizardAPIContext();
-  const wizardActiveStepData = useWizardActiveStep();
-
-  const { goToStep } = wizardAPIContextData;
-  const { activeStepIndex } = wizardActiveStepData;
-  
+  const { goToStep } = useWizardAPIContext();
+  const { activeStepIndex } = useWizardActiveStep();
+  const wizardNavigationKeys = useWizardNavigation();
   return (
     <div className="rounded-lg border border-black bg-amber-50 px-8 py-6 flex items-center gap-6 min-h-[110px]">
       <button
         onClick={() => goToStep(activeStepIndex - 1)}
-        className="h-12 w-20 rounded-lg bg-sky-300 text-white hover:bg-sky-400"
+        disabled={activeStepIndex === 0}
+        className={`h-12 w-20 rounded-lg text-white hover:cursor-pointer ${activeStepIndex === 0 ? "bg-sky-300" : "bg-blue-600"}`}
       >
         Prev
       </button>
 
       <button
         onClick={() => goToStep(activeStepIndex + 1)}
-        className="h-12 w-20 rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+        disabled={wizardNavigationKeys.length - 1 === activeStepIndex}
+        className={`h-12 w-20 rounded-lg text-white hover:cursor-pointer ${wizardNavigationKeys.length - 1 === activeStepIndex ? "bg-sky-300" : "bg-blue-600"}`}
       >
         Next
       </button>
