@@ -1,11 +1,17 @@
+import { useEffect } from "react";
 import useWizardAPIContext from "./hooks/useWizardAPIContext";
 import useWizardActiveStep from "./hooks/useWizardActiveStep";
 import useWizardNavigation from "./hooks/useWizardNavigation";
 
 export default function Controls() {
-  const { goToStep } = useWizardAPIContext();
+  const { goToStep, resetSteps } = useWizardAPIContext();
   const { activeStepIndex } = useWizardActiveStep();
   const wizardNavigationKeys = useWizardNavigation();
+
+//     useEffect(() => {
+//   console.log('Controls re-render ');
+// });
+
   return (
     <div className="rounded-lg border border-black bg-amber-50 px-8 py-6 flex items-center gap-6 min-h-[110px]">
       <button
@@ -23,6 +29,7 @@ export default function Controls() {
       >
         Next
       </button>
+      <button onClick={resetSteps} className="h-12 w-20 rounded-lg text-white hover:cursor-pointer bg-blue-600" >Reset</button>
     </div>
   );
 }

@@ -4,6 +4,7 @@ interface WizardAPIContextProps {
    updateNextStep: (stepId: string) => void;
    goToStep: (stepId: number) => void;
    updateStepData: (stepId: string) => void; 
+   resetSteps: () => void;
 }
 
 export const WizardAPIContext = createContext<WizardAPIContextProps | null>(null);

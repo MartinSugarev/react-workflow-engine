@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useWizardAPIContext from "./hooks/useWizardAPIContext";
 import useWizardNavigation from "./hooks/useWizardNavigation";
 import useWizardActiveStep from "./hooks/useWizardActiveStep";
@@ -8,6 +8,10 @@ export default function ContentFlowSelector() {
   const { updateNextStep } = useWizardAPIContext();
   const wizardNavigationData = useWizardNavigation();
   const { activeStepConfig } = useWizardActiveStep();
+
+//   useEffect(() => {
+//   console.log('ContentFlowSelector re-render ');
+// });
 
   return (
     <div className="flex items-center gap-6 text-base">

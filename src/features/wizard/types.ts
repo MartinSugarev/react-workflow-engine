@@ -14,7 +14,7 @@ interface WizardState {
   invalidSteps: string[];
 }
 
-type WizardActionType = 'UPDATE_INVALID_STEPS' | 'UPDATE_STORED_DATA' | 'UPDATE_ACTIVE_STEP_INDEX' | 'UPDATE_STEPS_CONFIG'
+type WizardActionType = 'UPDATE_INVALID_STEPS' | 'UPDATE_STORED_DATA' | 'UPDATE_ACTIVE_STEP_INDEX' | 'UPDATE_STEPS_CONFIG' | 'RESET_STEPS_CONFIG'
 
 interface WizardAction {
   type: WizardActionType;
@@ -22,4 +22,5 @@ interface WizardAction {
   stepIndex?: number;
   stepData?: string;
   isValid?: boolean;
+  initialStepsConfig?: Record<string, StepConfig>;
 }

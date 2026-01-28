@@ -11,9 +11,7 @@ export const wizardReducer = (
       // Update the nextStep for current step, recalculate navigationKeys
       // Hint: Use traverseConfig utility to rebuild navigation order
       if (!action.nextStepId) {
-        return {
-          ...state,
-        };
+        return state;
       }
 
       const nextStepsConfig = {
@@ -40,9 +38,7 @@ export const wizardReducer = (
       // Update activeStepIndex
 
       if (action.stepIndex === undefined || action.stepIndex === null) {
-        return {
-          ...state,
-        };
+        return state;
       }
 
       let nextIndex = action.stepIndex;
@@ -62,9 +58,7 @@ export const wizardReducer = (
     case WIZARD_ACTIONS.UPDATE_STORED_DATA:
       // Store form data for current step
       if (!action.stepData) {
-        return {
-          ...state,
-        };
+        return state;
       }
       return {
         ...state,
@@ -87,6 +81,22 @@ export const wizardReducer = (
       return {
         ...state,
         invalidSteps: Array.from(setOfInvalidSteps),
+      };
+    case WIZARD_ACTIONS.RESET_STEPS_CONFIG:
+      if (!action.initialStepsConfig) {
+        return state;
+      }
+      const nextNavigationKeys = traverseConfig(
+        action.initialStepsConfig,
+        state.entryPoint,
+      );
+      return {
+        ...state,
+        stepsConfig: action.initialStepsConfig,
+        navigationKeys: nextNavigationKeys,
+        activeStepIndex: 0,
+        invalidSteps: [],
+        storedData: {},
       };
     default:
       return state;

@@ -1,9 +1,13 @@
-import {  useState } from "react";
+import {  useEffect, useState } from "react";
 import useWizardAPIContext from "./hooks/useWizardAPIContext";
 
 export default function ContentForm() {
   const [inputData, setInputData] = useState<string>('')
   const {updateStepData} = useWizardAPIContext();
+ 
+  //   useEffect(() => {
+  //   console.log('ContentForm re-render ');
+  // });
 
 return (
   <div className="flex items-center gap-3">

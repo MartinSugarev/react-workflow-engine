@@ -2,6 +2,7 @@ import useWizardNavigation from "./hooks/useWizardNavigation";
 import useWizardAPIContext from "./hooks/useWizardAPIContext";
 import useWizardActiveStep from "./hooks/useWizardActiveStep";
 import useWizardInvalidStepsContext from "./hooks/useWizardInvalidStepContext";
+import { useEffect } from "react";
 
 export default function Navigation() {
   const items = useWizardNavigation();
@@ -9,6 +10,10 @@ export default function Navigation() {
   const wizzardInvadidSteps = useWizardInvalidStepsContext()
   const { goToStep } = useWizardAPIContext();
 
+
+//     useEffect(() => {
+//   console.log('Navigation re-render ');
+// });
   return (
     <aside className="w-full max-w-[420px] rounded-xl border border-black bg-rose-200 p-6">
       <ul className="space-y-6">
