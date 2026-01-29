@@ -1,5 +1,5 @@
 import { createContext } from "react";
 
-type WizardValidationAPIContextType = () => boolean;
+type WizardValidationAPIContextType = () => Promise<boolean>;
 
 export const WizardValidationAPIContext = createContext<WizardValidationAPIContextType | null>(null);

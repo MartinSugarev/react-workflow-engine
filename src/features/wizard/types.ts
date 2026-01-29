@@ -1,8 +1,8 @@
 interface StepConfig {
   title: string;
   content: React.ReactElement;
-  options?: { stepId: string }[];  // For branching flows
-  nextStep: string | null;         // null = final step
+  options?: { stepId: string }[]; 
+  nextStep: string | null;         
 }
 
 interface WizardState {

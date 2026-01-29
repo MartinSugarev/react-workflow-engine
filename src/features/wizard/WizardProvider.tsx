@@ -9,13 +9,14 @@ import { WizardNavigationContextData } from "./contexts/WizardNavigationContext"
 import { WizardInvalidStepsContext } from "./contexts/WizardInvalidStepContext";
 import { WizardValidationAPIContext } from "./contexts/WizardValidationAPIContext";
 import { isWizardLocalStorageDataType, JSONparse } from "./utils/jsonParse";
+import { stepValidationSecondEdition } from "./utils/stepValidation";
 
 export type StepConfigPersisted = Omit<StepConfig, "content">;
 export type StepsConfigPersisted = Record<string, StepConfigPersisted>;
 interface WizardProviderProps {
   children: ReactNode;
   stepsConfig: Record<string, StepConfig>;
-  validationCallback: () => boolean;
+  validationCallback: () => boolean | Promise<boolean>;
 }
 
 export interface WizardLocalStorageDataType {
@@ -24,6 +25,42 @@ export interface WizardLocalStorageDataType {
   invalidSteps: string[];
   storedData: Record<string, string>;
 }
+
+const stateInit = (base: WizardState): WizardState => {
+  const rawWizardLocalStorageData = localStorage.getItem("wizardState");
+  const JSONparsedStorage = rawWizardLocalStorageData
+    ? JSONparse<WizardLocalStorageDataType>(rawWizardLocalStorageData)
+    : undefined;
+  if (!isWizardLocalStorageDataType(JSONparsedStorage)) return base;
+  const currentActiveStepIndex =
+    JSONparsedStorage.activeStepIndex ?? base.activeStepIndex;
+  const invalidSteps = JSONparsedStorage.invalidSteps ?? base.invalidSteps;
+  const storedData = JSONparsedStorage.storedData ?? base.storedData;
+
+  const mergedStepsConfig: Record<string, StepConfig> = {};
+  for (const [k, v] of Object.entries(base.stepsConfig)) {
+    const persistedNextStep = JSONparsedStorage.stepsConfig?.[k];
+
+    mergedStepsConfig[k] = {
+      ...v,
+      nextStep:
+        persistedNextStep !== undefined
+          ? persistedNextStep.nextStep
+          : v.nextStep,
+    };
+  }
+
+  const nextNavigationKeys = traverseConfig(mergedStepsConfig, base.entryPoint);
+
+  return {
+    ...base,
+    stepsConfig: mergedStepsConfig,
+    navigationKeys: nextNavigationKeys,
+    activeStepIndex: currentActiveStepIndex,
+    invalidSteps: invalidSteps,
+    storedData: storedData,
+  };
+};
 
 export const WizardProvider = ({
   stepsConfig,
@@ -37,43 +74,6 @@ export const WizardProvider = ({
     navigationKeys: traverseConfig(stepsConfig, "start"),
     entryPoint: "start",
     invalidSteps: [],
-  };
-
-  const stateInit = (base: WizardState): WizardState => {
-    const rawWizardLocalStorageData = localStorage.getItem("wizardState");
-    const JSONparsedStorage = rawWizardLocalStorageData
-      ? JSONparse<WizardLocalStorageDataType>(rawWizardLocalStorageData)
-      : undefined;
-    if (!isWizardLocalStorageDataType(JSONparsedStorage)) return base;
-    const currentActiveStepIndex =
-      typeof JSONparsedStorage.activeStepIndex === "number"
-        ? JSONparsedStorage.activeStepIndex
-        : base.activeStepIndex;
-
-const mergedStepsConfig: Record<string, StepConfig> = {};
-for (const [k, v] of Object.entries(base.stepsConfig)) {
-  const persistedNextStep = JSONparsedStorage.stepsConfig?.[k];
-
-  mergedStepsConfig[k] = {
-    ...v,
-    nextStep: persistedNextStep !== undefined ? persistedNextStep.nextStep : v.nextStep,
-  };
-}
-
-    const nextNavigationKeys = traverseConfig(
-      mergedStepsConfig,
-      base.entryPoint,
-    );
-
-
-    return {
-      ...base,
-      stepsConfig: mergedStepsConfig,
-      navigationKeys: nextNavigationKeys,
-      activeStepIndex: currentActiveStepIndex,
-      invalidSteps: JSONparsedStorage.invalidSteps,
-      storedData: JSONparsedStorage.storedData,
-    };
   };
 
   const [state, dispatch] = useReducer(wizardReducer, initialState, stateInit);
@@ -117,8 +117,12 @@ for (const [k, v] of Object.entries(base.stepsConfig)) {
 
   // Create stable API functions
   const goToStep = useCallback(
-    (stepIndex: number) => {
-      const isValid = validationCallback();
+    async (stepIndex: number) => {
+      let isValid: boolean;
+
+      let result = await stepValidationSecondEdition();
+      isValid = result;
+
       dispatch({ type: WIZARD_ACTIONS.UPDATE_ACTIVE_STEP_INDEX, stepIndex });
       dispatch({ type: WIZARD_ACTIONS.UPDATE_INVALID_STEPS, isValid });
     },
@@ -148,7 +152,7 @@ for (const [k, v] of Object.entries(base.stepsConfig)) {
 
   return (
     <WizardNavigationContextData.Provider value={state.navigationKeys}>
-      <WizardValidationAPIContext.Provider value={validationCallback}>
+      <WizardValidationAPIContext.Provider value={stepValidationSecondEdition}>
         <WizardInvalidStepsContext.Provider value={state.invalidSteps}>
           <WizardAPIContext.Provider value={apiValue}>
             <WizardActiveStepContext.Provider value={activeStepData}>
