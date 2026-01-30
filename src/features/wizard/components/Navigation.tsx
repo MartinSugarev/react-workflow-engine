@@ -5,26 +5,25 @@ import useWizardInvalidStepsContext from "./hooks/useWizardInvalidStepContext";
 import { useEffect } from "react";
 
 export default function Navigation() {
-  const items = useWizardNavigation();
+  const steps = useWizardNavigation();
   const {activeStepIndex} = useWizardActiveStep();
   const wizzardInvadidSteps = useWizardInvalidStepsContext()
   const { goToStep } = useWizardAPIContext();
-
-
+  const completionPersantage = (100 / steps.length) * (activeStepIndex+1);
 //     useEffect(() => {
 //   console.log('Navigation re-render ');
 // });
   return (
-    <aside className="w-full max-w-[420px] rounded-xl border border-black bg-rose-200 p-6">
+    <aside className="w-full flex flex-col justify-between max-w-[420px] rounded-xl border border-black bg-rose-200 p-6">
       <ul className="space-y-6">
-        {items.map((label, idx) => {
+        {steps.map((label, idx) => {
           const isActive = idx === activeStepIndex;
           const isStepInvalid = wizzardInvadidSteps.includes(label)
           return (
             <li key={label}>
               <button
                 onClick={() => goToStep(idx)}
-                className={`w-full text-left hover:cursor-pointer 
+                className={`text-left hover:cursor-pointer 
                   ${isActive ? "font-extrabold" : "font-semibold"}
                   ${isStepInvalid ? "text-red-500" : "text-black"}`}
               >
@@ -37,6 +36,9 @@ export default function Navigation() {
           );
         })}
       </ul>
+      <div>
+       {`Completion: ${completionPersantage.toFixed(2)}%` }
+      </div>
     </aside>
   );
 }

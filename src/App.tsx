@@ -1,8 +1,8 @@
 import React from 'react'
-import WizardLayout from './pages/WizardPage'
+import WizardPage from './pages/WizardPage'
 
 export default function App() {
   return (
-    <WizardLayout  />
+    <WizardPage  />
   )
 }

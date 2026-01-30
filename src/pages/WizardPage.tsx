@@ -4,7 +4,7 @@ import Step from "../features/wizard/components/Step";
 import { WizardProvider } from "../features/wizard/WizardProvider";
 import { stepsConfig } from "../features/wizard/configs/steps-config";
 import { stepValidationSecondEdition } from "../features/wizard/utils/stepValidation";
-export default function WizardLayout() {
+export default function WizardPage() {
   return (
     <div className="min-h-screen bg-white p-10">
       <div className="mx-auto max-w-6xl border border-slate-300 p-8">
