@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  devtool: 'eval-cheap-source-map',
+  devtool: 'inline-source-map',
   resolve: {
   extensions: ['.ts', '.tsx', '.js', '.jsx']
  },
