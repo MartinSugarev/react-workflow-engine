@@ -1,20 +1,25 @@
 interface StepConfig {
   title: string;
   content: React.ReactElement;
-  options?: { stepId: string }[]; 
-  nextStep: string | null;         
+  options?: { stepId: string }[];
+  nextStep: string | null;
 }
 
 interface WizardState {
   stepsConfig: Record<string, StepConfig>;
-  navigationKeys: string[];        // Ordered list of step keys
+  navigationKeys: string[];
   activeStepIndex: number;
   storedData: Record<string, string>;
   entryPoint: string;
   invalidSteps: string[];
 }
 
-type WizardActionType = 'UPDATE_INVALID_STEPS' | 'UPDATE_STORED_DATA' | 'UPDATE_ACTIVE_STEP_INDEX' | 'UPDATE_STEPS_CONFIG' | 'RESET_STEPS_CONFIG'
+type WizardActionType =
+  | "UPDATE_INVALID_STEPS"
+  | "UPDATE_STORED_DATA"
+  | "UPDATE_ACTIVE_STEP_INDEX"
+  | "UPDATE_STEPS_CONFIG"
+  | "RESET_STEPS_CONFIG";
 
 interface WizardAction {
   type: WizardActionType;

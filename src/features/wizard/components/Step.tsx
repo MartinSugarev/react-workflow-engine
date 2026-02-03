@@ -1,14 +1,8 @@
-import { useEffect } from "react";
 import useWizardActiveStep from "./hooks/useWizardActiveStep";
 
-export default function Step() {
+const Step: React.FC = () => {
   const { activeStepConfig, activeStepStoredData } = useWizardActiveStep();
 
-//     useEffect(() => {
-//   console.log('Step re-render ');
-// });
-
- 
   return (
     <div className="rounded-xl border border-black bg-sky-200 p-10 min-h-[360px] flex flex-col gap-10">
       <div>
@@ -18,4 +12,5 @@ export default function Step() {
       {activeStepStoredData}
     </div>
   );
-}
+};
+export default Step;

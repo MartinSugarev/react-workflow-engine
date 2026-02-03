@@ -1,5 +1,6 @@
-import { createContext } from 'react'
+import { createContext } from "react";
 
-export type  WizardNavigationContextType = string[];
+export type WizardNavigationContextType = string[];
 
-export const WizardNavigationContextData = createContext<WizardNavigationContextType | null>(null);
+export const WizardNavigationContextData =
+  createContext<WizardNavigationContextType | null>(null);

@@ -2,23 +2,20 @@ import useWizardNavigation from "./hooks/useWizardNavigation";
 import useWizardAPIContext from "./hooks/useWizardAPIContext";
 import useWizardActiveStep from "./hooks/useWizardActiveStep";
 import useWizardInvalidStepsContext from "./hooks/useWizardInvalidStepContext";
-import { useEffect } from "react";
 
-export default function Navigation() {
+const Navigation: React.FC = () => {
   const steps = useWizardNavigation();
-  const {activeStepIndex} = useWizardActiveStep();
-  const wizzardInvadidSteps = useWizardInvalidStepsContext()
+  const { activeStepIndex } = useWizardActiveStep();
+  const wizzardInvadidSteps = useWizardInvalidStepsContext();
   const { goToStep } = useWizardAPIContext();
-  const completionPersantage = (100 / steps.length) * (activeStepIndex+1);
-//     useEffect(() => {
-//   console.log('Navigation re-render ');
-// });
+  const completionPersantage = (100 / steps.length) * (activeStepIndex + 1);
+
   return (
     <aside className="w-full flex flex-col justify-between max-w-[420px] rounded-xl border border-black bg-rose-200 p-6">
       <ul className="space-y-6">
         {steps.map((label, idx) => {
           const isActive = idx === activeStepIndex;
-          const isStepInvalid = wizzardInvadidSteps.includes(label)
+          const isStepInvalid = wizzardInvadidSteps.includes(label);
           return (
             <li key={label}>
               <button
@@ -36,9 +33,8 @@ export default function Navigation() {
           );
         })}
       </ul>
-      <div>
-       {`Completion: ${completionPersantage.toFixed(2)}%` }
-      </div>
+      <div>{`Completion: ${completionPersantage.toFixed(2)}%`}</div>
     </aside>
   );
-}
+};
+export default Navigation;

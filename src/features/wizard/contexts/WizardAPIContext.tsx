@@ -1,10 +1,12 @@
-import { createContext } from 'react'
+import { createContext } from "react";
 
 interface WizardAPIContextProps {
-   updateNextStep: (stepId: string) => void;
-   goToStep: (stepId: number) => void;
-   updateStepData: (stepId: string) => void; 
-   resetSteps: () => void;
+  updateNextStep: (stepId: string) => void;
+  goToStep: (stepId: number) => void;
+  updateStepData: (stepId: string) => void;
+  resetSteps: () => void;
 }
 
-export const WizardAPIContext = createContext<WizardAPIContextProps | null>(null);
+export const WizardAPIContext = createContext<WizardAPIContextProps | null>(
+  null,
+);

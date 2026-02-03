@@ -3,29 +3,29 @@ import ContentForm from "../components/ContentForm";
 
 export const stepsConfig: Record<string, StepConfig> = {
   start: {
-    title: 'Select Topic',
+    title: "Select Topic",
     content: <ContentFlowSelector key="start" />,
-    options: [{ stepId: 'flowA' }, { stepId: 'flowB' }],
-    nextStep: 'assetSelection',  // Default, can be changed dynamically
+    options: [{ stepId: "flowA" }, { stepId: "flowB" }],
+    nextStep: "assetSelection", // Default, can be changed dynamically
   },
   flowA: {
-    title: 'Order',
+    title: "Order",
     content: <ContentForm key="flowA" />,
-    nextStep: 'assetSelection',
+    nextStep: "assetSelection",
   },
   flowB: {
-    title: 'Edit',
+    title: "Edit",
     content: <ContentForm key="flowB" />,
-    nextStep: 'assetSelection',
+    nextStep: "assetSelection",
   },
   assetSelection: {
-    title: 'Select Asset',
+    title: "Select Asset",
     content: <ContentForm key="assetSelection" />,
-    nextStep: 'submission',
+    nextStep: "submission",
   },
   submission: {
-    title: 'Submit',
+    title: "Submit",
     content: <div>Submission Summary</div>,
-    nextStep: null,  // Final step
+    nextStep: null, // Final step
   },
 };

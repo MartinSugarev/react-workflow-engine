@@ -1,8 +1,7 @@
-import React from 'react'
-import WizardPage from './pages/WizardPage'
+import React from "react";
+import WizardPage from "./pages/WizardPage";
 
-export default function App() {
-  return (
-    <WizardPage  />
-  )
-}
+const App: React.FC = () => {
+  return <WizardPage />;
+};
+export default App;

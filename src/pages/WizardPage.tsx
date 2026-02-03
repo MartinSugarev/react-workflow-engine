@@ -1,10 +1,11 @@
 import Controls from "../features/wizard/components/Controls";
 import Navigation from "../features/wizard/components/Navigation";
 import Step from "../features/wizard/components/Step";
-import { WizardProvider } from "../features/wizard/WizardProvider";
+import WizardProvider from "../features/wizard/WizardProvider";
 import { stepsConfig } from "../features/wizard/configs/steps-config";
 import { stepValidationSecondEdition } from "../features/wizard/utils/stepValidation";
-export default function WizardPage() {
+
+const WizardPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-white p-10">
       <div className="mx-auto max-w-6xl border border-slate-300 p-8">
@@ -25,3 +26,4 @@ export default function WizardPage() {
     </div>
   );
 }
+export default WizardPage

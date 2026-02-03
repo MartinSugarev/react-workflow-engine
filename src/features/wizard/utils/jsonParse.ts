@@ -1,4 +1,7 @@
-import { StepConfigPersisted, WizardLocalStorageDataType } from "../WizardProvider";
+import {
+  StepConfigPersisted,
+  WizardLocalStorageDataType,
+} from "../WizardProvider";
 
 function isStringArray(value: unknown): value is string[] {
   return (
@@ -14,7 +17,6 @@ function areValuesString(value: unknown): value is Record<string, string> {
     Object.entries(value).every(([k, v]) => typeof v === "string")
   );
 }
-
 
 function isStepsConfig(
   value: unknown,
@@ -66,7 +68,6 @@ export function JSONparse<T>(params: string): T | undefined {
   try {
     return JSON.parse(params);
   } catch {
-    console.log(`Error in parsing JSON string`);
     return undefined;
   }
 }

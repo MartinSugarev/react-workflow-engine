@@ -28,9 +28,11 @@ export interface WizardLocalStorageDataType {
 
 const stateInit = (base: WizardState): WizardState => {
   const rawWizardLocalStorageData = localStorage.getItem("wizardState");
-  const JSONparsedStorage = rawWizardLocalStorageData
-    ? JSONparse<WizardLocalStorageDataType>(rawWizardLocalStorageData)
-    : undefined;
+  if (!rawWizardLocalStorageData) return base;
+  const JSONparsedStorage = JSONparse<WizardLocalStorageDataType>(
+    rawWizardLocalStorageData,
+  );
+
   if (!isWizardLocalStorageDataType(JSONparsedStorage)) return base;
   const currentActiveStepIndex =
     JSONparsedStorage.activeStepIndex ?? base.activeStepIndex;
@@ -62,11 +64,11 @@ const stateInit = (base: WizardState): WizardState => {
   };
 };
 
-export const WizardProvider = ({
+const WizardProvider: React.FC<WizardProviderProps> = ({
   stepsConfig,
   children,
   validationCallback,
-}: WizardProviderProps) => {
+}) => {
   const initialState: WizardState = {
     stepsConfig,
     activeStepIndex: 0,
@@ -115,7 +117,6 @@ export const WizardProvider = ({
     state.stepsConfig,
   ]);
 
-  // Create stable API functions
   const goToStep = useCallback(
     async (stepIndex: number) => {
       let isValid: boolean;
@@ -166,3 +167,5 @@ export const WizardProvider = ({
     </WizardNavigationContextData.Provider>
   );
 };
+
+export default WizardProvider;

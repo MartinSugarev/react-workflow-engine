@@ -1,5 +1,6 @@
 import { createContext } from "react";
 
-type WizardInvalidStepsContextType = string[]
+type WizardInvalidStepsContextType = string[];
 
-export const WizardInvalidStepsContext = createContext<WizardInvalidStepsContextType | null>(null)
+export const WizardInvalidStepsContext =
+  createContext<WizardInvalidStepsContextType | null>(null);
