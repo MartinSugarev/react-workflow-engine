@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from 'react';
+
 interface DataType {
   id: string;
   claimNumber: string;
@@ -10,16 +11,16 @@ interface DataType {
   assignedAdjuster: string;
 }
 interface OptionWithBody {
-  method: "POST" | "PUT" | "PATCH";
+  method: 'POST' | 'PUT' | 'PATCH';
   body: string;
 }
 interface OptionWithoutBody {
-  method: "GET";
+  method: 'GET';
 }
 
 type OptionsProp = (OptionWithBody | OptionWithoutBody) & {
   headers?: {
-    "Content-Type": "application/json" | "text/xml";
+    'Content-Type': 'application/json' | 'text/xml';
   };
 };
 
@@ -41,17 +42,19 @@ export default function useFetch(url: string, options?: OptionsProp) {
       });
       if (!res.ok) {
         throw new Error(`${res.statusText}`);
+        setLoading(false);
       }
       const data = await res.json();
       setData(data);
     } catch (e: unknown) {
       const error = e instanceof Error ? e : new Error(String(e));
 
-      if (error.name !== "AbortError") {
+      if (error.name !== 'AbortError') {
         setError(error);
       }
     } finally {
       setLoading(false);
+      console.log('hey');
     }
   }, []);
 
