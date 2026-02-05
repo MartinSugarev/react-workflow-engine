@@ -1,20 +1,19 @@
+import React from 'react';
 import SummaryContainer from './SummaryContainer';
 import Totals from './Totals';
-import { useClaimsSummary } from '../../hooks/useClaimsSummary';
 import { useClaimContext } from '../../hooks/useClaimContext';
+import claimsSummary from '../../utils/claimsSummary';
 
-export default function SummaryComponent() {
-  const {searchedItems: result} = useClaimContext()    
-  const { totalAmount, totalCount, byStatus } = useClaimsSummary(result);
+const SummaryComponent: React.FC = () => {
+  const {showedClaims, allItems} = useClaimContext()    
+  const  summaryContainerTotalsLabels  = claimsSummary(showedClaims, allItems.length);
 
   return (
     <SummaryContainer>
-      <Totals description="Total amount (visible claims)" counter={totalAmount} />
-      <Totals description="Total claims" counter={result.length} />
-      <Totals description="Total claims (visible)" counter={totalCount} />
-      {Object.entries(byStatus).map(([status, count]) => (
+      {Object.entries(summaryContainerTotalsLabels).map(([status, count]) => (
         <Totals key={status} description={status} counter={count} />
       ))}
     </SummaryContainer>
   );
 }
+export default SummaryComponent

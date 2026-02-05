@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import { ClaimCard } from './ClaimCard';
+import React from 'react';
 import { useClaimContext } from '../../hooks/useClaimContext';
+import ClaimCard from './ClaimCard';
 
-export default function ClaimsContainer() {
-  const {searchedItems: state, loading}  = useClaimContext();
 
+const ClaimsContainer: React.FC = () => {
+  const {showedClaims, loading, error}  = useClaimContext();
   if (loading) {
     return (
       <p className="text-center mt-4 text-gray-500 text-lg">
@@ -13,11 +13,21 @@ export default function ClaimsContainer() {
     );
   }
 
+  if (error) {
+    return (
+        <p className="text-center mt-4 text-gray-500 text-lg">
+      Something went wrong while loading the claims.
+    </p>
+    )
+  }
+
   return (
     <div className="mt-2 px-10 flex flex-wrap justify-center gap-2">
-      {state.map((claim) => (
-        <ClaimCard key={claim.id} claim={claim} />
+      {showedClaims.map((claim) => (
+        <ClaimCard key={claim.id} assignedAdjuster={claim.assignedAdjuster} claimAmount={claim.claimAmount} claimNumber={claim.claimNumber} claimType={claim.claimType} dateSubmitted={claim.dateSubmitted} id={claim.id} policyholderName={claim.policyholderName} status={claim.status} />
       ))}
     </div>
   );
 }
+
+export default ClaimsContainer;

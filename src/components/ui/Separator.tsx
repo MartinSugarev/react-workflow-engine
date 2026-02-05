@@ -1,9 +1,13 @@
+import React from "react";
 interface SeparatorProps {
     className?: string
 }
 
-export default function Separator({className}: SeparatorProps) {
+const Separator: React.FC<SeparatorProps> = ({className}) => {
+
   return (
     <div className={`border-t border-gray-200 ${className ?? ''}`}/>
   );
 }
+
+export default Separator

@@ -1,13 +1,15 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 
 interface SummaryContainerProps {
   children: ReactNode;
 }
 
-export default function SummaryContainer({children}: SummaryContainerProps) {
+const SummaryContainer: React.FC<SummaryContainerProps> = ({children}) => {
   return (
     <div className="flex flex-wrap gap-4">
        {children}
     </div>
   )
 }
+
+export default SummaryContainer

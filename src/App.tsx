@@ -1,7 +1,8 @@
-import Dashboard from "./pages/Dashboard";
+import React from "react";
+import Dashboard from "./components/dashboard/DashboardContainer";
 
-export default function App() {
-  return (
-     <Dashboard />
-  );
+const App: React.FC = () => {
+  return <Dashboard />;
 }
+
+export default App;

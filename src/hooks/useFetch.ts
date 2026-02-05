@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SingleClaimType } from "../types/dashboard";
+import { SingleClaimType } from "../types/dashboard.types";
 
 interface OptionWithBody {
   method: "POST" | "PUT" | "PATCH";
