@@ -6,7 +6,7 @@ import {
   StatusType,
 } from "../types/dashboard.types";
 import showAllVisibleItems from "../utils/showAllVisibleItems";
-export type FilterAction =
+type FilterAction =
   | { type: "SET_INITIAL_CLAIMS"; payload: SingleClaimType[] }
   | { type: "FILTER_APPLIED"; payload: FilterTypes[] }
   | { type: "UPDATE_CLAIM_STATUS"; payload: { id: string; status: StatusType } }
@@ -19,32 +19,35 @@ export function reducer(state: FilterStateType, action: FilterAction): FilterSta
   switch (action.type) {
 
     case "SET_INITIAL_CLAIMS":
-      return { 
+      return {
         ...state,
-         allItems: action.payload,
-         showedClaims:  showAllVisibleItems({
+        allItems: action.payload,
+        showedClaims: showAllVisibleItems({
           ...state,
           allItems: action.payload
-         })};
+        })
+      };
 
     case "FILTER_APPLIED":
-      return { 
-        ...state, 
+      return {
+        ...state,
         appliedFilters: action.payload,
         showedClaims: showAllVisibleItems({
           ...state,
           appliedFilters: action.payload
-        }) };
+        })
+      };
 
     case "ADDED_SORTING_RULE":
 
-      return { 
-         ...state,
-         sortingRules: action.payload,
-         showedClaims: showAllVisibleItems({
+      return {
+        ...state,
+        sortingRules: action.payload,
+        showedClaims: showAllVisibleItems({
           ...state,
           sortingRules: action.payload
-         }) };
+        })
+      };
 
     case "UPDATE_CLAIM_STATUS":
       return {
@@ -81,6 +84,6 @@ export function reducer(state: FilterStateType, action: FilterAction): FilterSta
       };
 
     default:
-            return state
+      return state
   }
 }

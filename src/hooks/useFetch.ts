@@ -1,60 +1,43 @@
-import { useEffect, useState } from "react";
-import { SingleClaimType } from "../types/dashboard.types";
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-interface OptionWithBody {
-  method: "POST" | "PUT" | "PATCH";
-  body: string;
-}
+import { OptionsPropType, SingleClaimType } from '../types/dashboard.types';
 
-interface OptionWithoutBody {
-  method: "GET";
-}
-
-type OptionsProp =
-  (OptionWithBody | OptionWithoutBody) & {
-    headers?: {
-      "Content-Type": "application/json" | "text/xml";
-    };
-  };
-
-export default function useFetch(
-  url: string,
-  options?: OptionsProp
-) {
+export default function useFetch(url: string, options?: OptionsPropType) {
   const [data, setData] = useState<SingleClaimType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
+  const controllerRef = useRef<AbortController | null>(null);
 
-  const controller = new AbortController();
-
-  useEffect(() => {
-    apiCall();
-
-    return () => controller.abort();
-  }, [url]);
-
-  async function apiCall() {
+  const apiCall = useCallback(async () => {
+    controllerRef.current?.abort();
+    controllerRef.current = new AbortController();
     setLoading(true);
     setError(null);
-
     try {
       const res = await fetch(url, {
         ...options,
-        signal: controller.signal,
+        signal: controllerRef.current.signal,
       });
-
       if (!res.ok) {
-        throw new Error(res.statusText);
+        throw new Error(`${res.statusText}`);
       }
+      const data = await res.json();
+      setData(data);
+    } catch (e: unknown) {
+      const error = e instanceof Error ? e : new Error(String(e));
 
-      const fetchedData: SingleClaimType[] = await res.json();
-      setData(fetchedData);
-    } catch (e: any) {
-      setError(e);
+      if (error.name !== 'AbortError') {
+        setError(error);
+      }
     } finally {
       setLoading(false);
     }
-  }
+  }, []);
 
-  return { data, loading, error };
+  useEffect(() => {
+    apiCall();
+    return () => controllerRef.current?.abort();
+  }, []);
+
+  return { data, loading, error, refetch: apiCall };
 }

@@ -1,7 +1,7 @@
 import { createContext } from "react";
 import { FilterTypes, SingleClaimType, SortState, UpdatedItemProps } from "../../types/dashboard.types";
 
-export interface ClaimsActionContextType {
+interface ClaimsActionContextType {
   setInitialClaims: (claims: SingleClaimType[]) => void;
   applyFilters: (filters: FilterTypes[]) => void;
   addSortingRules: (rules: SortState) => void;
@@ -11,5 +11,3 @@ export interface ClaimsActionContextType {
 }
 
 export const ClaimsActionContext = createContext<ClaimsActionContextType | null>(null)
-
-

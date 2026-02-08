@@ -3,7 +3,7 @@ import { FilterStateType, FilterTypes, SingleClaimType, SortState, UpdatedItemPr
 import { reducer } from "../../reducers/claimsReducer";
 import useFetch from "../../hooks/useFetch";
 import { ClaimsActionContext } from "./ClaimsActionContext";
-export interface ClaimContextType {
+interface ClaimContextType {
   allItems: SingleClaimType[];
   filteredItems: SingleClaimType[];
   appliedFilters: FilterTypes[];
@@ -32,58 +32,58 @@ const ClaimProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const setInitialClaims = useCallback((claims: SingleClaimType[]): void => {
-  dispatch({ type: "SET_INITIAL_CLAIMS", payload: claims });
-},[])
+    dispatch({ type: "SET_INITIAL_CLAIMS", payload: claims });
+  }, [])
 
-    useEffect(() => {
-      setInitialClaims(claimsData );
+  useEffect(() => {
+    setInitialClaims(claimsData);
   }, [claimsData]);
 
-const applyFilters = useCallback((filters: FilterTypes[]): void => {
-  dispatch({ type: "FILTER_APPLIED", payload: filters });
-}, []) 
+  const applyFilters = useCallback((filters: FilterTypes[]): void => {
+    dispatch({ type: "FILTER_APPLIED", payload: filters });
+  }, [])
 
-const addSortingRules = useCallback((rules: SortState): void => {
-  dispatch({ type: "ADDED_SORTING_RULE", payload: rules });
-}, [])
+  const addSortingRules = useCallback((rules: SortState): void => {
+    dispatch({ type: "ADDED_SORTING_RULE", payload: rules });
+  }, [])
 
-const updateClaimStatus = useCallback((payload: UpdatedItemProps): void => {
-  dispatch({ type: "UPDATE_CLAIM_STATUS", payload });
-}, [])
+  const updateClaimStatus = useCallback((payload: UpdatedItemProps): void => {
+    dispatch({ type: "UPDATE_CLAIM_STATUS", payload });
+  }, [])
 
-const clearAllFilters = useCallback((): void => {
-  dispatch({ type: "CLEAR_ALL_FILTERS" });
-}, [])
+  const clearAllFilters = useCallback((): void => {
+    dispatch({ type: "CLEAR_ALL_FILTERS" });
+  }, [])
 
-const searchClaims = useCallback((value: string): void => {
-  dispatch({ type: "SEARCH", payload: value });
-}, [])
+  const searchClaims = useCallback((value: string): void => {
+    dispatch({ type: "SEARCH", payload: value });
+  }, [])
 
 
-const actionsValue = useMemo(() => ({
-  searchClaims,
-  clearAllFilters,
-  addSortingRules,
-  applyFilters,
-  setInitialClaims,
-  updateClaimStatus,
-}), []);
+  const actionsValue = useMemo(() => ({
+    searchClaims,
+    clearAllFilters,
+    addSortingRules,
+    applyFilters,
+    setInitialClaims,
+    updateClaimStatus,
+  }), []);
 
-  
+
   return (
     <ClaimContext.Provider
       value={{
         ...state,
         loading,
-        error,
- 
+        error
       }}
     >
       <ClaimsActionContext.Provider value={actionsValue}>
 
-      {children}
+        {children}
       </ClaimsActionContext.Provider>
     </ClaimContext.Provider>
   );
 };
+
 export default ClaimProvider;

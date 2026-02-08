@@ -1,10 +1,10 @@
 import {
   FilterStateType,
-  SingleClaimType,
   FilterTypes,
-  UpdatedItemProps,
+  SingleClaimType,
   SortState,
-} from "../types/dashboard.types";
+  UpdatedItemProps,
+} from '../types/dashboard.types';
 
 function applyUpdateItem(
   items: SingleClaimType[],
@@ -13,9 +13,7 @@ function applyUpdateItem(
   if (!updatedItem) return items;
 
   return items.map((claim) =>
-    claim.id === updatedItem.id
-      ? { ...claim, status: updatedItem.status }
-      : claim,
+    claim.id === updatedItem.id ? { ...claim, status: updatedItem.status } : claim,
   );
 }
 
@@ -33,38 +31,30 @@ function getFilteredItems(
     result.push(...filtered);
   });
 
-
   return Array.from(new Set(result));
 }
 
-function getSortedItems(
-  items: SingleClaimType[],
-  sort: SortState,
-): SingleClaimType[] {
+function getSortedItems(items: SingleClaimType[], sort: SortState): SingleClaimType[] {
   if (!sort) return items;
 
   const { field, order } = sort;
   const result = [...items];
 
   switch (field) {
-    case "DATE":
-      if (order === "ASC") {
+    case 'DATE':
+      if (order === 'ASC') {
         result.sort(
-          (a, b) =>
-            new Date(a.dateSubmitted).getTime() -
-            new Date(b.dateSubmitted).getTime(),
+          (a, b) => new Date(a.dateSubmitted).getTime() - new Date(b.dateSubmitted).getTime(),
         );
       } else {
         result.sort(
-          (a, b) =>
-            new Date(b.dateSubmitted).getTime() -
-            new Date(a.dateSubmitted).getTime(),
+          (a, b) => new Date(b.dateSubmitted).getTime() - new Date(a.dateSubmitted).getTime(),
         );
       }
       break;
 
-    case "AMOUNT":
-      if (order === "ASC") {
+    case 'AMOUNT':
+      if (order === 'ASC') {
         result.sort((a, b) => a.claimAmount - b.claimAmount);
       } else {
         result.sort((a, b) => b.claimAmount - a.claimAmount);
@@ -75,11 +65,7 @@ function getSortedItems(
   return result;
 }
 
-
-function getSearchedClaims(
-  items: SingleClaimType[],
-  searchValue: string,
-): SingleClaimType[] {
+function getSearchedClaims(items: SingleClaimType[], searchValue: string): SingleClaimType[] {
   if (!searchValue) return items;
 
   const lowerSearch = searchValue.toLowerCase();
@@ -91,15 +77,14 @@ function getSearchedClaims(
 }
 
 const showAllVisibleItems = (ctx: FilterStateType) => {
-  const { allItems, appliedFilters, sortingRules, searchValue, updatedItem } =
-    ctx;
+  const { allItems, appliedFilters, sortingRules, searchValue, updatedItem } = ctx;
 
   const updatedItems = applyUpdateItem(allItems, updatedItem);
   const filteredItems = getFilteredItems(updatedItems, appliedFilters);
   const sortedItems = getSortedItems(filteredItems, sortingRules);
   const searchedItems = getSearchedClaims(sortedItems, searchValue);
 
-  return searchedItems ;
+  return searchedItems;
 };
 
 export default showAllVisibleItems;

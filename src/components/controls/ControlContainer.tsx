@@ -1,12 +1,12 @@
 import React, { ReactNode } from "react"
 interface ControlContainerProps {
-    children: ReactNode
+  children: ReactNode
 }
 
-const ControlContainer: React.FC<ControlContainerProps> = ({children}) => {
+const ControlContainer: React.FC<ControlContainerProps> = ({ children }) => {
   return (
-    <div className="flex flex-wrap justify-end gap-2">
-       {children}
+    <div className="flex flex-wrap justify-start sm:justify-center items-end gap-2 ">
+      {children}
     </div>
   )
 }

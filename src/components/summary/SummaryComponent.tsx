@@ -5,8 +5,8 @@ import { useClaimContext } from '../../hooks/useClaimContext';
 import claimsSummary from '../../utils/claimsSummary';
 
 const SummaryComponent: React.FC = () => {
-  const {showedClaims, allItems} = useClaimContext()    
-  const  summaryContainerTotalsLabels  = claimsSummary(showedClaims, allItems.length);
+  const { showedClaims, allItems } = useClaimContext()
+  const summaryContainerTotalsLabels = claimsSummary(showedClaims, allItems.length);
 
   return (
     <SummaryContainer>

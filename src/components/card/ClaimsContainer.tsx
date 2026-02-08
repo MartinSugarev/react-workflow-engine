@@ -4,7 +4,7 @@ import ClaimCard from './ClaimCard';
 
 
 const ClaimsContainer: React.FC = () => {
-  const {showedClaims, loading, error}  = useClaimContext();
+  const { showedClaims, loading, error } = useClaimContext();
   if (loading) {
     return (
       <p className="text-center mt-4 text-gray-500 text-lg">
@@ -15,9 +15,9 @@ const ClaimsContainer: React.FC = () => {
 
   if (error) {
     return (
-        <p className="text-center mt-4 text-gray-500 text-lg">
-      Something went wrong while loading the claims.
-    </p>
+      <p className="text-center mt-4 text-gray-500 text-lg">
+        Something went wrong while loading the claims.
+      </p>
     )
   }
 
