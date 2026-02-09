@@ -9,14 +9,13 @@ import { WizardNavigationContextData } from "./contexts/WizardNavigationContext"
 import { WizardInvalidStepsContext } from "./contexts/WizardInvalidStepContext";
 import { WizardValidationAPIContext } from "./contexts/WizardValidationAPIContext";
 import { isWizardLocalStorageDataType, JSONparse } from "./utils/jsonParse";
-import { stepValidationSecondEdition } from "./utils/stepValidation";
 
 export type StepConfigPersisted = Omit<StepConfig, "content">;
 export type StepsConfigPersisted = Record<string, StepConfigPersisted>;
 interface WizardProviderProps {
   children: ReactNode;
   stepsConfig: Record<string, StepConfig>;
-  validationCallback: () => boolean | Promise<boolean>;
+  validationCallback: () => Promise<boolean>;
 }
 
 export interface WizardLocalStorageDataType {
@@ -121,7 +120,7 @@ const WizardProvider: React.FC<WizardProviderProps> = ({
     async (stepIndex: number) => {
       let isValid: boolean;
 
-      let result = await stepValidationSecondEdition();
+      let result = await validationCallback();
       isValid = result;
 
       dispatch({ type: WIZARD_ACTIONS.UPDATE_ACTIVE_STEP_INDEX, stepIndex });
@@ -153,7 +152,7 @@ const WizardProvider: React.FC<WizardProviderProps> = ({
 
   return (
     <WizardNavigationContextData.Provider value={state.navigationKeys}>
-      <WizardValidationAPIContext.Provider value={stepValidationSecondEdition}>
+      <WizardValidationAPIContext.Provider value={validationCallback}>
         <WizardInvalidStepsContext.Provider value={state.invalidSteps}>
           <WizardAPIContext.Provider value={apiValue}>
             <WizardActiveStepContext.Provider value={activeStepData}>
