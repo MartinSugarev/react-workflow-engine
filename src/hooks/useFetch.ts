@@ -1,30 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-interface DataType {
-  id: string;
-  claimNumber: string;
-  policyholderName: string;
-  claimType: string;
-  status: string;
-  claimAmount: number;
-  dateSubmitted: string;
-  assignedAdjuster: string;
-}
-interface OptionWithBody {
-  method: "POST" | "PUT" | "PATCH";
-  body: string;
-}
-interface OptionWithoutBody {
-  method: "GET";
-}
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-type OptionsProp = (OptionWithBody | OptionWithoutBody) & {
-  headers?: {
-    "Content-Type": "application/json" | "text/xml";
-  };
-};
+import { OptionsPropType, SingleClaimType } from '../types/dashboard.types';
 
-export default function useFetch(url: string, options?: OptionsProp) {
-  const [data, setData] = useState<DataType[] | null>(null);
+export default function useFetch(url: string, options?: OptionsPropType) {
+  const [data, setData] = useState<SingleClaimType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
   const controllerRef = useRef<AbortController | null>(null);
@@ -47,7 +26,7 @@ export default function useFetch(url: string, options?: OptionsProp) {
     } catch (e: unknown) {
       const error = e instanceof Error ? e : new Error(String(e));
 
-      if (error.name !== "AbortError") {
+      if (error.name !== 'AbortError') {
         setError(error);
       }
     } finally {
